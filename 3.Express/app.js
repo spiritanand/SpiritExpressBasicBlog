@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 
 // setup express app
 const app = express();
@@ -38,18 +39,23 @@ app.listen(3000);
 // 	 .sendFile("./views/404.html", {root: __dirname});
 // });
 
+// using 3rd party middleware for logging
+app.use(morgan("dev"));
+
+// middleware for accessing static files
+app.use(express.static("public"));
 
 // now we will see how to serve a whole view
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", {title: "Home"});
 });
-app.get("/about", (req, res) => {
-  res.render("about");
+app.get("/about", (req, res, next) => {
+  res.render("about", {title: "About"});
 });
 app.get("/blogs/create", (req, res) => {
-  res.render("create");
+  res.render("create", {title: "Create"});
 });
 app.use((req, res) => {
   res.status(404)
-	 .render("404");
+	 .render("404", {title: "404"});
 });

@@ -1,3 +1,5 @@
+require("dotenv")
+  .config();
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
@@ -7,7 +9,7 @@ const blogRoutes = require("./routes/blogRoutes");
 const app = express();
 
 // connect to MongoDB
-const dbURI = `mongodb+srv://spirtinnovates:PKGEReKWKn6ypbDM@learnnode.ftd43i2.mongodb.net/NetNinjaBlog?retryWrites=true&w=majority`;
+const dbURI = process.env.DB_URI;
 mongoose.connect(dbURI)
 		.then(res => {
 		  console.log("connected to db");

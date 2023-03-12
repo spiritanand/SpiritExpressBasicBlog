@@ -3,19 +3,34 @@
 <%- include("./partials/head.ejs") %>
 <body>
 <%- include("./partials/navbar.ejs") %>
-<% const name = "Luigi" %>
+<% const name = "Random User" %>
 <div>
     <h2>
         Hello, <%= name %>
     </h2>
-    <h3>
-        All Blogs
-    </h3>
-<!--    we are able to access this image by using the express middleware "static"-->
+    <!--    we are able to access this image by using the express middleware "static"-->
     <img src = "/pikachu.png"
          alt = "pikachu in combat"
          style = "width: 100%"
     >
+    <div class="blogs">
+        <h3>
+            All Blogs
+        </h3>
+        <% if (blogs.length > 0){ %>
+            <% blogs.map(blog => { %>
+            <a class = "single"
+               href = "/blogs/<%= blog._id %>"
+            >
+                <h3><%= blog.title %></h3>
+                <p><%= blog.snippet %></p>
+            </a>
+            <% }) %>
+        <% }else { %>
+            <p>There are no blogs to display...</p>
+        <% } %>
+    </div>
+
 </div>
 </body>
 </html>
